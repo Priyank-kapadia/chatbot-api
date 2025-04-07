@@ -25,7 +25,7 @@ app.add_middleware(
 )
 
 # Set Groq API Key
-os.environ["GROQ_API_KEY"] = "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"
+#os.environ["GROQ_API_KEY"] = "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"
 
 # Define request schema
 class ChatRequest(BaseModel):
@@ -44,8 +44,10 @@ async def startup_event():
         logger.info("Loading documents and initializing models...")
         
         # Initialize Groq client first (it's faster)
-        groq_client = Groq(model="llama-3.1-8b-instant")
-        logger.info("Groq client initialized")
+        groq_client = Groq(
+          model="llama-3.1-8b-instant",
+          api_key=os.environ.get("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")  # Get from environment
+        )
         
         # Load embedding model
         embedding_model = HuggingFaceEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
