@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from llama_index import SimpleDirectoryReader, VectorStoreIndex
+from llama_index.core import SimpleDirectoryReader, VectorStoreIndex
 from llama_index.llms.groq import Groq
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 import os
@@ -56,7 +56,7 @@ async def startup_event():
         # Load documents with error handling
         try:
             logger.info("Starting to load PDF document...")
-            reader = SimpleDirectoryReader(input_files=["The Emperor of All Maladies_ A Biography of Cancer final.pdf"])
+            reader = SimpleDirectoryReader(input_files=["docs/The Emperor of All Maladies_ A Biography of Cancer final.pdf"])
             documents = reader.load_data()
             logger.info(f"Successfully loaded {len(documents)} document chunks")
             
